@@ -1,9 +1,11 @@
 <script setup>
+import EndSectionHome from '@/components/homePage/EndSectionHome.vue'
+import HeroSection from '@/components/homePage/HeroSection.vue'
+import OurServiceSection from '@/components/homePage/OurServiceSection.vue'
 </script>
 
 <template>
-  
-  <div>
-    <h1>this is home view</h1>
-  </div>
+  <HeroSection />
+  <OurServiceSection />
+  <EndSectionHome />
 </template>
