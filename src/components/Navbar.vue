@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, RouterLink } from 'vue-router'
 import { Bars3BottomRightIcon } from '@heroicons/vue/24/outline'
 
 const navItems = [
