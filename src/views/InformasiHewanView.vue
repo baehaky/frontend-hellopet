@@ -14,7 +14,7 @@ import { RouterLink } from 'vue-router'
           <div class="relative w-full aspect-video">
             <img
               class="rounded w-full h-full object-cover"
-              src="@/assets/images/dog.png"
+              src="@/assets/images/dog.jpg"
               alt="anjing"
               loading="lazy"
             />

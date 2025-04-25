@@ -19,7 +19,7 @@ import { RouterLink } from 'vue-router'
       </div>
 
       <img
-        src="@/assets/images/dog.png"
+        src="@/assets/images/dog.jpg"
         class="w-full object-cover lg:rounded"
         :style="{ height: '28em' }"
       />
@@ -32,99 +32,52 @@ import { RouterLink } from 'vue-router'
           Anjing dikenal sebagai hewan peliharaan yang setia dan penuh kasih sayang. Namun, seperti
           halnya manusia, anjing juga bisa terkena berbagai jenis penyakit. Sebagai pemilik yang
           bertanggung jawab, penting bagi kita untuk mengenali tanda-tanda awal penyakit dan
-          memahami bagaimana cara merawat serta mencegahnya. Berikut ini beberapa penyakit umum yang
-          sering dialami oleh anjing:
+          memahami bagaimana cara merawat serta mencegahnya.
+        </p>
+        <br />
+        <h2><strong>1. Parvovirus (Parvo)</strong></h2>
+        <p>
+          Parvovirus adalah penyakit yang sangat menular pada anjing. Gejalanya meliputi muntah,
+          diare berdarah, kehilangan nafsu makan, dan tubuh yang lemas. Pencegahan terbaik adalah
+          dengan memberikan vaksin secara rutin sesuai anjuran dokter hewan.
+        </p>
+        <br />
+        <h2><strong>2. Distemper</strong></h2>
+        <p>
+          Distemper adalah penyakit virus lain yang juga berbahaya. Tanda-tandanya antara lain demam
+          tinggi, batuk dan pilek, mata berair, hingga kejang atau gangguan saraf. Vaksinasi
+          distemper sejak usia dini sangat penting untuk mencegah infeksi ini.
+        </p>
+        <br />
+        <h2><strong>3. Cacingan</strong></h2>
+        <p>
+          Cacingan bisa menyebabkan perut buncit, berat badan turun, anemia, dan bahkan muntah atau
+          kotoran yang mengandung cacing. Pencegahan dilakukan dengan pemberian obat cacing secara
+          berkala setiap beberapa bulan sesuai saran dokter hewan.
+        </p>
+        <br />
+        <h2><strong>4. Penyakit Kulit</strong></h2>
+        <p>
+          Penyakit kulit bisa ditandai dengan gatal berlebihan, kerontokan bulu, luka atau ruam,
+          serta bau tidak sedap dari kulit. Penyebabnya bisa jamur, kutu, alergi, atau lingkungan
+          yang tidak bersih. Menjaga kebersihan dan menggunakan sampo khusus bisa membantu
+          mencegahnya.
+        </p>
+        <br />
+        <h2><strong>5. Rabies</strong></h2>
+        <p>
+          Rabies adalah penyakit yang sangat serius dan bisa menular ke manusia. Gejala rabies
+          termasuk perubahan perilaku, air liur berlebihan, dan kelumpuhan. Vaksin rabies sangat
+          penting terutama jika anjing sering berada di luar rumah.
         </p>
 
-        <h2>1. Parvovirus (Parvo)</h2>
-        <h3>Gejala:</h3>
-        <ul>
-          <li>Muntah</li>
-          <li>Diare berdarah</li>
-          <li>Kehilangan nafsu makan</li>
-          <li>Lemas</li>
-        </ul>
-        <h3>Pencegahan:</h3>
+        <br />
+        <h2><strong>Kesimpulan</strong></h2>
         <p>
-          Vaksinasi adalah langkah paling efektif untuk mencegah parvo. Pastikan anjing Anda
-          mendapatkan vaksin secara rutin sesuai anjuran dokter hewan.
-        </p>
-        <hr />
-
-        <h2>2. Distemper</h2>
-        <h3>Gejala:</h3>
-        <ul>
-          <li>Demam tinggi</li>
-          <li>Batuk dan pilek</li>
-          <li>Mata berair</li>
-          <li>Kejang atau gangguan saraf (pada tahap lanjut)</li>
-        </ul>
-        <h3>Pencegahan:</h3>
-        <p>
-          Vaksinasi distemper penting dilakukan sejak usia dini. Penyakit ini sangat menular dan
-          bisa berakibat fatal.
-        </p>
-        <hr />
-
-        <h2>3. Cacingan</h2>
-        <h3>Gejala:</h3>
-        <ul>
-          <li>Perut buncit</li>
-          <li>Berat badan turun</li>
-          <li>Anemia (gusi pucat)</li>
-          <li>Muntah atau feses mengandung cacing</li>
-        </ul>
-        <h3>Pencegahan:</h3>
-        <p>Beri obat cacing secara berkala setiap 3-6 bulan, tergantung usia dan kondisi anjing.</p>
-        <hr />
-
-        <h2>4. Penyakit Kulit</h2>
-        <h3>Gejala:</h3>
-        <ul>
-          <li>Gatal berlebihan</li>
-          <li>Kerontokan bulu</li>
-          <li>Luka atau ruam pada kulit</li>
-          <li>Bau tidak sedap dari kulit</li>
-        </ul>
-        <h3>Penyebab:</h3>
-        <p>Bisa disebabkan oleh jamur, kutu, alergi makanan, atau lingkungan.</p>
-        <h3>Pencegahan:</h3>
-        <p>
-          Mandikan anjing secara teratur dengan sampo khusus, jaga kebersihan lingkungan, dan
-          hindari kontak dengan hewan yang terinfeksi.
-        </p>
-        <hr />
-
-        <h2>5. Rabies</h2>
-        <h3>Gejala:</h3>
-        <ul>
-          <li>Perubahan perilaku (agresif atau takut air)</li>
-          <li>Saliva berlebihan</li>
-          <li>Lumpuh</li>
-        </ul>
-        <h3>Pencegahan:</h3>
-        <p>
-          Vaksin rabies wajib diberikan, terutama jika anjing berada di area yang rentan atau sering
-          keluar rumah.
-        </p>
-        <hr />
-
-        <h2>Tips Menjaga Kesehatan Anjing:</h2>
-        <ul>
-          <li><strong>Vaksinasi lengkap dan rutin</strong></li>
-          <li><strong>Pemberian makanan bergizi dan air bersih</strong></li>
-          <li><strong>Pemeriksaan kesehatan rutin ke dokter hewan</strong></li>
-          <li><strong>Lingkungan yang bersih dan bebas parasit</strong></li>
-          <li><strong>Aktivitas fisik dan mental yang cukup</strong></li>
-        </ul>
-        <hr />
-
-        <h2>Kesimpulan</h2>
-        <p>
-          Menjaga kesehatan anjing bukan hanya membuat mereka hidup lebih lama, tapi juga menjaga
-          keamanan dan kesehatan lingkungan sekitar, termasuk manusia. Dengan perhatian yang tepat,
-          penyakit pada anjing bisa dicegah atau ditangani sejak dini. Jangan ragu untuk
-          berkonsultasi dengan dokter hewan jika anjing Anda menunjukkan gejala yang tidak biasa.
+          Menjaga kesehatan anjing bukan hanya membuat mereka hidup lebih lama, tetapi juga menjaga
+          keamanan lingkungan sekitar. Dengan perhatian dan perawatan yang tepat, penyakit bisa
+          dicegah atau ditangani sejak dini. Jangan ragu untuk berkonsultasi ke dokter hewan bila
+          menemukan gejala yang mencurigakan.
         </p>
       </div>
     </div>
