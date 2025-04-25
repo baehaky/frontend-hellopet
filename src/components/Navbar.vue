@@ -5,7 +5,7 @@ import { Bars3BottomRightIcon } from '@heroicons/vue/24/outline'
 
 const navItems = [
   { name: 'Beranda', path: '/' },
-  { name: 'Tentang Kami', path: '/about-us' },
+  { name: 'Tentang Kami', path: '/tentang-kami' },
   { name: 'Informasi', path: '/informasi' },
 ]
 
@@ -14,7 +14,7 @@ const isMobileOpen = ref(false)
 </script>
 
 <template>
-  <header class="bg-white sticky top-0 w-full border-b-[1.5px] border-b-black">
+  <header class="bg-white sticky top-0 w-full border-b-[1.5px] z-10 border-b-black">
     <nav
       class="max-w-7xl mx-auto flex items-center lg:gap-x-10 justify-between p-6 lg:px-8"
       aria-label="Global"
@@ -61,8 +61,10 @@ const isMobileOpen = ref(false)
           v-for="item in navItems"
           :key="item.name"
           :to="item.path"
-          class="text-black font-serif hover:text-[#16BDCA] underline"
-          @click="isMobileOpen = false"
+          :class="[
+            'text-black font-serif flex gap-x-1.5 hover:text-[#16BDCA] hover:underline hover:[text-underline-offset:4px] transition-all delay-100',
+            route.path === item.path ? 'font-bold text-[#16BDCA] underline' : '',
+          ]"
         >
           {{ item.name }}
         </RouterLink>

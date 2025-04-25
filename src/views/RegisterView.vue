@@ -1,11 +1,53 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { reactive } from 'vue'
+
+const form = reactive({
+  username: '',
+  phone: '',
+  address: '',
+  email: '',
+  password: '',
+})
+
+const formFields = [
+  {
+    name: 'username',
+    type: 'text',
+    placeholder: 'Username',
+    col: 'md:w-1/2',
+  },
+  {
+    name: 'phone',
+    type: 'text',
+    placeholder: 'Nomor Handphone',
+    col: 'md:w-1/2',
+  },
+  {
+    name: 'address',
+    type: 'text',
+    placeholder: 'Alamat',
+  },
+  {
+    name: 'email',
+    type: 'email',
+    placeholder: 'Email',
+  },
+  {
+    name: 'password',
+    type: 'password',
+    placeholder: 'Password',
+  },
+]
+
+const submitForm = () => {
+  console.log('Form submitted:', { ...form })
+}
 </script>
 
 <template>
   <section className="min-h-screen flex items-stretch flex-row-reverse">
     <div className="lg:flex w-1/2 hidden bg-teal-400  items-center">
-      <div className="w-full px-2 text-white">
+      <div className="w-full px-10 text-white">
         <h1 className="text-5xl font-bold text-left tracking-wide">Daftarkan segera akun kamu</h1>
         <RouterLink to="/">
           <button
@@ -20,64 +62,28 @@ import { RouterLink } from 'vue-router'
       </div>
     </div>
     <div className="lg:w-2/3 w-full flex items-center justify-center text-center md:px-16 px-0">
-      <div className="w-full py-6 ">
+      <div className="w-full py-6">
         <h1 className="my-6 text-black text-3xl font-bold">Daftarkan Akun Kamu</h1>
-
         <div>
-          <form className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto flex flex-wrap">
-            <div className="pb-2 pt-4 w-full md:w-1/2">
-              <input
-                type="text"
-                placeholder="Username"
-                className="block w-full p-4 text-lg rounded-sm border-2"
-              />
-            </div>
-            <div className="pb-2 pt-4 w-full md:w-1/2">
-              <input
-                type="text"
-                placeholder="Nomor Handphone"
-                className="block w-full p-4 text-lg rounded-sm border-2"
-              />
-            </div>
-            <div className="pb-2 pt-4 w-full">
-              <input
-                type="text"
-                placeholder="Alamat"
-                className="block w-full p-4 text-lg rounded-sm border-2"
-              />
-            </div>
-            <div className="pb-2 pt-3 w-full ">
-              <label>Pilih gender anda</label>
-              <div className="flex justify-around mt-4">
-                <div className="flex items-center">
-                  <input type="radio" name="disabled-radio" className="w-4 h-4 " />
-                  <label className="ms-2 text-sm font-medium ">Pria</label>
-                </div>
-                <div className="flex items-center">
-                  <input type="radio" name="disabled-radio" className="w-4 h-4 " />
-                  <label className="ms-2 text-sm font-medium">Wanita</label>
-                </div>
+          <form
+            @submit.prevent="submitForm"
+            class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto flex flex-wrap"
+          >
+            <template v-for="field in formFields" :key="field.name">
+              <div :class="`pb-2 pt-4 w-full ${field.col || ''}`">
+                <input
+                  v-model="form[field.name]"
+                  :type="field.type"
+                  :placeholder="field.placeholder"
+                  class="block w-full p-4 text-lg rounded-sm border-2"
+                />
               </div>
-            </div>
+            </template>
 
-            <div className="pb-2 pt-4 w-full">
-              <input
-                className="block w-full p-4 text-lg rounded-sm border-2"
-                type="email"
-                placeholder="Email"
-              />
-            </div>
-            <div className="pb-2 pt-4 w-full">
-              <input
-                className="block w-full p-4 text-lg rounded-sm border-2"
-                type="password"
-                placeholder="Password"
-              />
-            </div>
-
-            <div className="px-4 pb-2 pt-4 w-full">
+            <div class="px-4 pb-2 pt-4 w-full">
               <button
-                className="uppercase block w-full p-4 text-lg rounded-full bg-teal-400 hover:bg-teal-600 focus:outline-none text-white"
+                type="submit"
+                class="uppercase block w-full p-4 text-lg rounded-full bg-teal-400 hover:bg-teal-600 text-white"
               >
                 Daftar
               </button>

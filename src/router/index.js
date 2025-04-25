@@ -2,7 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
-
+import JadwalDokter from '@/views/JadwalDokter.vue'
+import InformasiHewan from '@/views/InformasiHewan.vue'
+import DokterFavorite from '@/views/DokterFavorite.vue'
+import TentangkamiView from '@/views/TentangkamiView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -10,6 +13,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
+    },
+    {
+      path: '/tentang-kami',
+      name: 'tentang-kami',
+      component: TentangkamiView,
     },
     {
       path: '/:pathMatch(.*)*',
@@ -25,6 +33,21 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: RegisterView,
+    },
+    {
+      path: '/jadwal-dokter',
+      name: 'jadwaldokter',
+      component: JadwalDokter,
+    },
+    {
+      path: '/informasi',
+      name: 'informasi',
+      component: InformasiHewan,
+    },
+    {
+      path: '/dokter-favorite',
+      name: 'dokter-favorite',
+      component: DokterFavorite,
     },
   ],
 })
