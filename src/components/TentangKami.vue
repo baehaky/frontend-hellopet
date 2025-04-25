@@ -4,7 +4,7 @@
     <div class="flex justify-center mb-6">
       <img src="@/assets/images/9.png" alt="HelloPet Logo" class="w-24 h-24" />
     </div>
-    <div class="max-w-4xl mx-auto px-6 text-justify text-white text-lg">
+    <div class="max-w-4xl mx-auto px-6 text-justify font-medium text-white text-lg">
       HelloPet adalah platform digital yang hadir untuk memberikan kemudahan bagi pemilik hewan
       peliharaan dalam memenuhi kebutuhan kesehatan dan perawatan hewan mereka. Melalui HelloPet,
       kami menyediakan berbagai layanan yang dirancang untuk membuat akses kesehatan hewan lebih
