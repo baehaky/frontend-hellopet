@@ -1,8 +1,20 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { reactive } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter, RouterLink } from 'vue-router'
+import Swal from 'sweetalert2'
+
+const auth = useAuthStore()
+const router = useRouter()
+
+const form = reactive({
+  email: '',
+  password: '',
+})
+
 const formFields = [
-  { type: 'text', placeholder: 'Email' },
-  { type: 'password', placeholder: 'Password' },
+  { name: 'email', type: 'text', placeholder: 'Email' },
+  { name: 'password', type: 'password', placeholder: 'Password' },
 ]
 
 const links = [
@@ -19,13 +31,36 @@ const links = [
       'bg-black hover:border-red-300 active:bg-red-700 rounded-md text-white w-full text-center font-medium px-3 py-2 md:px-4 md:py-3 md:hidden',
   },
 ]
+
+const submitForm = async () => {
+  const success = await auth.login({
+    email: form.email,
+    password: form.password,
+  })
+
+  if (success) {
+    await Swal.fire({
+      icon: 'success',
+      title: 'Berhasil',
+      text: 'Login berhasil!',
+    })
+    await router.push('/')
+  } else {
+    await Swal.fire({
+      icon: 'error',
+      title: 'Gagal',
+      text: 'Login gagal!',
+    })
+  }
+}
 </script>
 
 <template>
   <div class="flex flex-col max-w-md space-y-5">
-    <form class="flex flex-col space-y-3">
-      <template v-for="(field, index) in formFields" :key="index">
+    <form @submit.prevent="submitForm" class="flex flex-col space-y-3">
+      <template v-for="field in formFields" :key="field.name">
         <input
+          v-model="form[field.name]"
           :type="field.type"
           :placeholder="field.placeholder"
           class="flex px-3 py-2 md:px-4 md:py-3 border-2 border-teal-400 rounded-lg font-medium placeholder:font-normal w-full"
@@ -33,9 +68,11 @@ const links = [
       </template>
 
       <button
+        type="submit"
         class="flex items-center justify-center hover:border-teal-300 active:bg-teal-700 bg-teal-400 w-full px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium text-white"
+        :disabled="auth.loading"
       >
-        Konfirmasi
+        {{ auth.loading ? 'Loading...' : 'Masuk' }}
       </button>
     </form>
 

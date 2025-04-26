@@ -1,20 +1,41 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
 import { Bars3BottomRightIcon } from '@heroicons/vue/24/outline'
 import MobileNavbar from './MobileNavbar.vue'
+import { useAuthStore } from '@/stores/auth'
 
-const navItems = [
-  { name: 'Beranda', path: '/' },
-  { name: 'Tentang Kami', path: '/tentang-kami' },
-  { name: 'Informasi', path: '/informasi' },
-]
+const authStore = useAuthStore()
+console.log('Auth store state:', authStore.user, authStore.token, authStore.isLoggedIn)
+
+const navItems = computed(() => {
+  if (authStore.isLoggedIn) {
+    return [
+      { name: 'Dashboard', path: '/dashboard' },
+      { name: 'Profil', path: '/profil' },
+      { name: 'Keluar', path: '/logout' },
+    ]
+  }
+  return [
+    { name: 'Beranda', path: '/' },
+    { name: 'Tentang Kami', path: '/tentang-kami' },
+    { name: 'Informasi', path: '/informasi' },
+  ]
+})
 
 const isMobileOpen = ref(false)
 const route = useRoute()
 
 const closeMobileMenu = () => {
   isMobileOpen.value = false
+}
+
+const handleLogout = async () => {
+  const success = await authStore.logout()
+  if (success) {
+    await route.push('/')
+    route.go(0)
+  }
 }
 </script>
 
@@ -24,12 +45,10 @@ const closeMobileMenu = () => {
       class="max-w-7xl mx-auto flex items-center lg:gap-x-10 justify-between p-6 lg:px-8"
       aria-label="Global"
     >
-      <!-- Logo -->
       <RouterLink to="/" class="-m-1.5 p-1.5">
         <img class="h-12 w-auto" src="@/assets/images/10.png" alt="Logo" />
       </RouterLink>
 
-      <!-- Desktop Navigation -->
       <div class="hidden md:flex gap-x-8 items-center">
         <RouterLink
           v-for="item in navItems"
@@ -44,16 +63,23 @@ const closeMobileMenu = () => {
         </RouterLink>
       </div>
 
-      <!-- Desktop Login Button -->
       <div class="hidden md:flex lg:flex-1 lg:justify-end">
-        <RouterLink to="/login">
+        <RouterLink v-if="!authStore.isLoggedIn" to="/login">
           <button class="bg-[#16BDCA] py-1.5 px-3.5 text-white rounded-lg hover:bg-cyan-700">
             Masuk
           </button>
         </RouterLink>
+        <button
+          v-else
+          type="button"
+          @click="handleLogout"
+          :disabled="authStore.loading"
+          class="bg-red-500 py-1.5 px-3.5 text-white rounded-lg hover:bg-red-700 disabled:opacity-50"
+        >
+          {{ authStore.loading ? 'Memproses...' : 'Keluar' }}
+        </button>
       </div>
 
-      <!-- Mobile Toggle Button -->
       <div class="md:hidden">
         <button @click="isMobileOpen = !isMobileOpen" class="text-black">
           <Bars3BottomRightIcon class="size-7" />
@@ -61,7 +87,6 @@ const closeMobileMenu = () => {
       </div>
     </nav>
 
-    <!-- Mobile Menu -->
     <MobileNavbar :is-mobile-open="isMobileOpen" :nav-items="navItems" @close="closeMobileMenu" />
   </header>
 </template>

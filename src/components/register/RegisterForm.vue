@@ -1,31 +1,31 @@
 <script setup>
 import { reactive } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
+
+const auth = useAuthStore()
+const router = useRouter()
+
 const form = reactive({
-  username: '',
+  full_name: '',
   phone: '',
-  address: '',
   email: '',
   password: '',
 })
 
 const formFields = [
   {
-    name: 'username',
+    name: 'full_name',
     type: 'text',
     placeholder: 'Username',
-    col: 'md:w-1/2',
   },
   {
     name: 'phone',
     type: 'text',
     placeholder: 'Nomor Handphone',
-    col: 'md:w-1/2',
   },
-  {
-    name: 'address',
-    type: 'text',
-    placeholder: 'Alamat',
-  },
+
   {
     name: 'email',
     type: 'email',
@@ -38,8 +38,28 @@ const formFields = [
   },
 ]
 
-const submitForm = () => {
-  console.log('Form submitted:', { ...form })
+const submitForm = async () => {
+  const success = await auth.register({
+    full_name: form.full_name,
+    email: form.email,
+    password: form.password,
+    phone_number: form.phone,
+  })
+
+  if (success) {
+    await Swal.fire({
+      icon: 'success',
+      title: 'Berhasil',
+      text: 'Pendaftaran berhasil!',
+    })
+    router.push('/login')
+  } else {
+    await Swal.fire({
+      icon: 'error',
+      title: 'Gagal',
+      text: 'Pendaftaran gagal!',
+    })
+  }
 }
 </script>
 
@@ -60,8 +80,9 @@ const submitForm = () => {
       <button
         type="submit"
         class="uppercase block w-full p-4 text-lg rounded-md bg-teal-400 hover:bg-teal-600 text-white"
+        :disabled="auth.loading"
       >
-        Daftar
+        {{ auth.loading ? 'Loading...' : 'Daftar' }}
       </button>
     </div>
   </form>
