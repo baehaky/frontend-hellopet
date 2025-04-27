@@ -40,8 +40,6 @@ export const useAuthStore = defineStore('auth', {
 
         this.user = response.data.user
         this.token = response.data.token
-
-        console.log('Login success:', this.user, this.token)
         return true
       } catch (error) {
         this.error = error.response?.data?.message || 'Gagal dalam masuk'
@@ -51,23 +49,18 @@ export const useAuthStore = defineStore('auth', {
     },
     async logout() {
       this.loading = true
+      this.error = null
       try {
-        await api
-          .post(
-            '/api/auth/logout',
-            {},
-            {
-              withCredentials: true,
-            },
-          )
-          .catch(() => {})
-
+        await api.post('/api/auth/logout', {}, { withCredentials: true })
+      } catch (error) {
+        if (error.response && error.response.status !== 401) {
+          this.error = error.response?.data?.message || 'Gagal logout'
+          throw error
+        }
+      } finally {
         this.user = null
         this.token = null
         localStorage.removeItem('auth')
-
-        return true
-      } finally {
         this.loading = false
       }
     },

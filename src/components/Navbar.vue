@@ -1,19 +1,20 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { useRoute, RouterLink } from 'vue-router'
+import { useRouter, useRoute, RouterLink } from 'vue-router'
+
 import { Bars3BottomRightIcon } from '@heroicons/vue/24/outline'
 import MobileNavbar from './MobileNavbar.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
-console.log('Auth store state:', authStore.user, authStore.token, authStore.isLoggedIn)
 
 const navItems = computed(() => {
   if (authStore.isLoggedIn) {
     return [
-      { name: 'Dashboard', path: '/dashboard' },
-      { name: 'Profil', path: '/profil' },
-      { name: 'Keluar', path: '/logout' },
+      { name: 'Beranda', path: '/beranda' },
+      { name: 'Tentang Kami', path: '/tentang-kami' },
+      { name: 'Informasi', path: '/informasi' },
+      { name: 'Dokter Favorit', path: '/dokter-favorite' },
     ]
   }
   return [
@@ -25,6 +26,7 @@ const navItems = computed(() => {
 
 const isMobileOpen = ref(false)
 const route = useRoute()
+const router = useRouter()
 
 const closeMobileMenu = () => {
   isMobileOpen.value = false
@@ -33,8 +35,8 @@ const closeMobileMenu = () => {
 const handleLogout = async () => {
   const success = await authStore.logout()
   if (success) {
-    await route.push('/')
-    route.go(0)
+    await router.push('/')
+     router.go(0)
   }
 }
 </script>
