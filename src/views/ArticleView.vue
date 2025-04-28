@@ -3,7 +3,7 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-  <main class="mt-10 px-20">
+  <main class="mt-10 px-5 lg:px-20">
     <RouterLink to="/">
       <h1 class="font-medium underline underline-offset-3 hover:underline-offset-1 transition-all">
         kembali
