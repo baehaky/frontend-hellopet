@@ -5,7 +5,7 @@
         class="mx-auto lg:mr-auto  lg:place-self-center lg:col-span-7"
       >
         <h1
-          class="max-w-2xl mb-4 text-xl md:text-5xl text-center font-extrabold tracking-tight leading-none md:text-center dark:text-white"
+          class="max-w-2xl mb-4 text-xl md:text-5xl text-center font-extrabold tracking-tight leading-none md:text-center text-white"
         >
           Pastikan <span class="text-[#FCFF82]">Kesehatan</span> Hewan Kesayangan Anda Tetap Terjaga
           dengan <span class="text-[#FCFF82]">Perlindungan</span> dari Berbagai
