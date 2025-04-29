@@ -1,6 +1,4 @@
-<script setup>
-
-</script>
+<script setup></script>
 
 <template>
   <section class="bg-white py-12 px-6 md:px-16 lg:px-32">
@@ -12,7 +10,7 @@
     </div>
 
     <div class="flex flex-col md:flex-row items-center gap-8">
-      <div class="shadow-lg ">
+      <div class="shadow-lg">
         <img
           src="@/assets/images/catdog.png"
           alt="Cat and Dog"
