@@ -32,3 +32,4 @@ coverage
 logs/
 tests_output/
 .env
+.env
