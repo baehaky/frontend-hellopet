@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
 
 const props = defineProps({
@@ -15,10 +16,16 @@ const route = useRoute()
 const handleClose = () => {
   emit('close')
 }
+const isLoggingOut = ref(false)
 
-const handleLogout = () => {
-  emit('logout')
-  handleClose()
+const handleLogout = async () => {
+  isLoggingOut.value = true
+  try {
+    await emit('logout')
+    emit('close')
+  } finally {
+    isLoggingOut.value = false
+  }
 }
 </script>
 
@@ -43,13 +50,17 @@ const handleLogout = () => {
       </RouterLink>
 
       <button
-        v-else
         @click="handleLogout"
-        :disabled="isLoading"
-        class="bg-red-500 py-1.5 px-3.5 text-white rounded-lg w-full mt-2 disabled:opacity-50"
+        :disabled="isLoggingOut"
+        class="bg-red-500 py-1.5 px-3.5 text-white rounded-lg w-full mt-2"
       >
-        <span v-if="isLoading">Memproses...</span>
-        <span v-else>Keluar</span>
+        <span v-if="!isLoggingOut">Keluar</span>
+        <span v-else class="flex items-center justify-center gap-2">
+          <span
+            class="inline-block h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+          ></span>
+          Memproses...
+        </span>
       </button>
     </div>
   </div>

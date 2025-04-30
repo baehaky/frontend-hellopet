@@ -7,6 +7,7 @@ import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
 const isMobileOpen = ref(false)
+const isLoggingOut = ref(false)
 const route = useRoute()
 const router = useRouter()
 
@@ -32,19 +33,24 @@ const closeMobileMenu = () => {
 }
 
 const handleLogout = async () => {
+  isLoggingOut.value = true
   try {
     await authStore.logout()
     router.push('/')
-  } catch (error) {
-    console.error('Logout error:', error)
+    setTimeout(() => window.location.reload(), 500)
+  } finally {
+    isLoggingOut.value = false
   }
 }
 
-watch(() => authStore.isLoggedIn, (newVal) => {
-  if (!newVal && !['/', '/login', '/register'].includes(route.path)) {
-    router.push('/')
-  }
-})
+watch(
+  () => authStore.isLoggedIn,
+  (newVal) => {
+    if (!newVal && !['/', '/login', '/register'].includes(route.path)) {
+      router.push('/')
+    }
+  },
+)
 authStore.initialize()
 </script>
 
@@ -73,23 +79,23 @@ authStore.initialize()
       </div>
 
       <div class="hidden md:flex lg:flex-1 lg:justify-end">
-        <RouterLink 
-          v-if="!authStore.isLoggedIn" 
+        <RouterLink
+          v-if="!authStore.isLoggedIn"
           to="/login"
           class="bg-[#16BDCA] py-1.5 px-3.5 text-white rounded-lg hover:bg-cyan-700"
         >
           Masuk
         </RouterLink>
         <button
-          v-else
-          type="button"
           @click="handleLogout"
-          :disabled="isLoading"
+          :disabled="isLoggingOut || authStore.logoutLoading"
           class="bg-red-500 py-1.5 px-3.5 text-white rounded-lg hover:bg-red-700 disabled:opacity-50"
         >
-          <span v-if="isLoading">Memproses...</span>
-          <span v-else>Keluar</span>
+          <span v-if="!isLoggingOut && !authStore.logoutLoading">Keluar</span>
+          <span v-else>Memproses...</span>
         </button>
+
+        <Spinner v-if="isLoggingOut || authStore.logoutLoading" />
       </div>
 
       <div class="md:hidden">
@@ -99,9 +105,9 @@ authStore.initialize()
       </div>
     </nav>
 
-    <MobileNavbar 
-      :is-mobile-open="isMobileOpen" 
-      :nav-items="navItems" 
+    <MobileNavbar
+      :is-mobile-open="isMobileOpen"
+      :nav-items="navItems"
       :is-logged-in="authStore.isLoggedIn"
       @close="closeMobileMenu"
       @logout="handleLogout"
