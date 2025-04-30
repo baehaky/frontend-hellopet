@@ -7,7 +7,7 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
-    Origin: window.location.origin,
+    Origin: 'https://www.hellopet.site',
   },
 })
 
