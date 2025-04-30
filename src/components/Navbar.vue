@@ -1,44 +1,51 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRouter, useRoute, RouterLink } from 'vue-router'
-
 import { Bars3BottomRightIcon } from '@heroicons/vue/24/outline'
 import MobileNavbar from './MobileNavbar.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
-
-const navItems = computed(() => {
-  if (authStore.isLoggedIn) {
-    return [
-      { name: 'Beranda', path: '/beranda' },
-      { name: 'Tentang Kami', path: '/tentang-kami' },
-      { name: 'Informasi', path: '/informasi' },
-      { name: 'Dokter Favorit', path: '/dokter-favorite' },
-    ]
-  }
-  return [
-    { name: 'Beranda', path: '/' },
-    { name: 'Tentang Kami', path: '/tentang-kami' },
-    { name: 'Informasi', path: '/informasi' },
-  ]
-})
-
 const isMobileOpen = ref(false)
 const route = useRoute()
 const router = useRouter()
+
+const isLoading = computed(() => authStore.loading)
+
+const navItems = computed(() => {
+  return authStore.isLoggedIn
+    ? [
+        { name: 'Beranda', path: '/beranda' },
+        { name: 'Tentang Kami', path: '/tentang-kami' },
+        { name: 'Informasi', path: '/informasi' },
+        { name: 'Dokter Favorit', path: '/dokter-favorite' },
+      ]
+    : [
+        { name: 'Beranda', path: '/' },
+        { name: 'Tentang Kami', path: '/tentang-kami' },
+        { name: 'Informasi', path: '/informasi' },
+      ]
+})
 
 const closeMobileMenu = () => {
   isMobileOpen.value = false
 }
 
 const handleLogout = async () => {
-  const success = await authStore.logout()
-  if (success) {
-    await router.push('/')
-     router.go(0)
+  try {
+    await authStore.logout()
+    router.push('/')
+  } catch (error) {
+    console.error('Logout error:', error)
   }
 }
+
+watch(() => authStore.isLoggedIn, (newVal) => {
+  if (!newVal && !['/', '/login', '/register'].includes(route.path)) {
+    router.push('/')
+  }
+})
+authStore.initialize()
 </script>
 
 <template>
@@ -66,19 +73,22 @@ const handleLogout = async () => {
       </div>
 
       <div class="hidden md:flex lg:flex-1 lg:justify-end">
-        <RouterLink v-if="!authStore.isLoggedIn" to="/login">
-          <button class="bg-[#16BDCA] py-1.5 px-3.5 text-white rounded-lg hover:bg-cyan-700">
-            Masuk
-          </button>
+        <RouterLink 
+          v-if="!authStore.isLoggedIn" 
+          to="/login"
+          class="bg-[#16BDCA] py-1.5 px-3.5 text-white rounded-lg hover:bg-cyan-700"
+        >
+          Masuk
         </RouterLink>
         <button
           v-else
           type="button"
           @click="handleLogout"
-          :disabled="authStore.loading"
+          :disabled="isLoading"
           class="bg-red-500 py-1.5 px-3.5 text-white rounded-lg hover:bg-red-700 disabled:opacity-50"
         >
-          {{ authStore.loading ? 'Memproses...' : 'Keluar' }}
+          <span v-if="isLoading">Memproses...</span>
+          <span v-else>Keluar</span>
         </button>
       </div>
 
@@ -89,6 +99,12 @@ const handleLogout = async () => {
       </div>
     </nav>
 
-    <MobileNavbar :is-mobile-open="isMobileOpen" :nav-items="navItems" @close="closeMobileMenu" />
+    <MobileNavbar 
+      :is-mobile-open="isMobileOpen" 
+      :nav-items="navItems" 
+      :is-logged-in="authStore.isLoggedIn"
+      @close="closeMobileMenu"
+      @logout="handleLogout"
+    />
   </header>
 </template>

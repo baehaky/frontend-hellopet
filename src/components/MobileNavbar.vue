@@ -4,14 +4,21 @@ import { useRoute, RouterLink } from 'vue-router'
 const props = defineProps({
   isMobileOpen: Boolean,
   navItems: Array,
+  isLoggedIn: Boolean,
+  isLoading: Boolean,
 })
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'logout'])
 
 const route = useRoute()
 
 const handleClose = () => {
   emit('close')
+}
+
+const handleLogout = () => {
+  emit('logout')
+  handleClose()
 }
 </script>
 
@@ -31,9 +38,19 @@ const handleClose = () => {
         {{ item.name }}
       </RouterLink>
 
-      <RouterLink to="/login" @click="handleClose">
+      <RouterLink v-if="!isLoggedIn" to="/login" @click="handleClose">
         <button class="bg-[#16BDCA] py-1.5 px-3.5 text-white rounded-lg w-full mt-2">Masuk</button>
       </RouterLink>
+
+      <button
+        v-else
+        @click="handleLogout"
+        :disabled="isLoading"
+        class="bg-red-500 py-1.5 px-3.5 text-white rounded-lg w-full mt-2 disabled:opacity-50"
+      >
+        <span v-if="isLoading">Memproses...</span>
+        <span v-else>Keluar</span>
+      </button>
     </div>
   </div>
 </template>
