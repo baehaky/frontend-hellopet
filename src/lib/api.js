@@ -7,7 +7,13 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
+    Origin: 'https://www.hellopet.site',
   },
+})
+
+api.interceptors.request.use((config) => {
+  config.headers.Referer = 'https://www.hellopet.site'
+  return config
 })
 
 api.interceptors.response.use(

@@ -31,6 +31,11 @@ export const useAuthStore = defineStore('auth', {
     async login(payload) {
       this.loading = true
       this.error = null
+      // Tambahkan ini sebelum api.post di auth.js
+      console.log('Sending login request with headers:', {
+        Origin: 'https://www.hellopet.site',
+        Referer: window.location.href,
+      })
       try {
         const response = await api.post('/api/auth/login', payload)
 
