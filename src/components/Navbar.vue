@@ -15,10 +15,9 @@ const isLoading = computed(() => authStore.loading)
 const navItems = computed(() => {
   return authStore.isLoggedIn
     ? [
-        { name: 'Beranda', path: '/beranda' },
+        { name: 'Beranda', path: '/' },
         { name: 'Tentang Kami', path: '/tentang-kami' },
         { name: 'Informasi', path: '/informasi' },
-        { name: 'Dokter Favorit', path: '/dokter-favorite' },
       ]
     : [
         { name: 'Beranda', path: '/' },
@@ -40,11 +39,14 @@ const handleLogout = async () => {
   }
 }
 
-watch(() => authStore.isLoggedIn, (newVal) => {
-  if (!newVal && !['/', '/login', '/register'].includes(route.path)) {
-    router.push('/')
-  }
-})
+watch(
+  () => authStore.isLoggedIn,
+  (newVal) => {
+    if (!newVal && !['/', '/login', '/register'].includes(route.path)) {
+      router.push('/')
+    }
+  },
+)
 authStore.initialize()
 </script>
 
@@ -73,8 +75,8 @@ authStore.initialize()
       </div>
 
       <div class="hidden md:flex lg:flex-1 lg:justify-end">
-        <RouterLink 
-          v-if="!authStore.isLoggedIn" 
+        <RouterLink
+          v-if="!authStore.isLoggedIn"
           to="/login"
           class="bg-[#16BDCA] py-1.5 px-3.5 text-white rounded-lg hover:bg-cyan-700"
         >
@@ -99,9 +101,9 @@ authStore.initialize()
       </div>
     </nav>
 
-    <MobileNavbar 
-      :is-mobile-open="isMobileOpen" 
-      :nav-items="navItems" 
+    <MobileNavbar
+      :is-mobile-open="isMobileOpen"
+      :nav-items="navItems"
       :is-logged-in="authStore.isLoggedIn"
       @close="closeMobileMenu"
       @logout="handleLogout"

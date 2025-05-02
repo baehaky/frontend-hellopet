@@ -12,7 +12,7 @@ const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
-  config.headers.Referer = 'https://www.hellopet.site'
+  config.headers.Referer = import.meta.env.VITE_URL_BASE
   return config
 })
 
