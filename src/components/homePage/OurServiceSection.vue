@@ -12,17 +12,17 @@ const serviceItems = computed(() => {
           image: new URL('@/assets/images/7.png', import.meta.url).href,
           path: 'jadwal-dokter',
         },
-      ]
-    : [
-        {
-          name: 'Konsultasi dengan Dokter Hewan',
-          image: '@/assets/images/7.png',
-          path: 'jadwal-dokter',
-        },
         {
           name: 'Favorit Dokter',
           image: new URL('@/assets/images/8.png', import.meta.url).href,
           path: 'favorit-dokter',
+        },
+      ]
+    : [
+        {
+          name: 'Konsultasi dengan Dokter Hewan',
+          image: new URL('@/assets/images/8.png', import.meta.url).href,
+          path: 'jadwal-dokter',
         },
       ]
 })
