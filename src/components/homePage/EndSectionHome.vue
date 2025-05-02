@@ -5,7 +5,7 @@
     >
       <div class="mr-auto place-self-center md:col-span-2 lg:col-span-9 ">
         <h1
-          class="max-w-full mb-4 text-xl text-justify font-extrabold tracking-tight leading-none md:text-3xl xl:text-4xl text-white"
+          class="max-w-full mb-4 text-xl ml-0 md:ml-5 lg:ml-11 text-justify font-bold tracking-tight leading-none md:text-2xl lg:text-4xl text-white"
         >
           Kami Hadir untuk Merawat <span class="text-[#FCFF82]">Kesehatan</span> Hewan
           <span class="text-[#FCFF82]">Kesayangan</span> Anda karena Mereka Lebih dari Sekadar
