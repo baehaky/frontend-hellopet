@@ -9,7 +9,7 @@ const serviceItems = computed(() => {
     ? [
         {
           name: 'Konsultasi dengan Dokter Hewan',
-          image: '@/assets/images/7.png',
+          image: new URL('@/assets/images/7.png', import.meta.url).href,
           path: 'jadwal-dokter',
         },
       ]
@@ -19,7 +19,11 @@ const serviceItems = computed(() => {
           image: '@/assets/images/7.png',
           path: 'jadwal-dokter',
         },
-        { name: 'Favorit Dokter', image: '@/assets/images/8.png', path: 'favorit-dokter' },
+        {
+          name: 'Favorit Dokter',
+          image: new URL('@/assets/images/8.png', import.meta.url).href,
+          path: 'favorit-dokter',
+        },
       ]
 })
 </script>
