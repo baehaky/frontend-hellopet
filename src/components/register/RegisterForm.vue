@@ -8,7 +8,7 @@ const auth = useAuthStore()
 const router = useRouter()
 
 const form = reactive({
-  full_name: '',
+  username: '',
   phone: '',
   email: '',
   password: '',
@@ -16,7 +16,7 @@ const form = reactive({
 
 const formFields = [
   {
-    name: 'full_name',
+    name: 'username',
     type: 'text',
     placeholder: 'Username',
   },
@@ -40,7 +40,7 @@ const formFields = [
 
 const submitForm = async () => {
   const success = await auth.register({
-    full_name: form.full_name,
+    username: form.username,
     email: form.email,
     password: form.password,
     phone_number: form.phone,
