@@ -1,6 +1,6 @@
-<script setup>
+<!-- <script setup>
 import { reactive } from 'vue'
-import { useAuthStore } from '@/stores/authDokter'
+// import { useAuthStore } from '@/stores/authDokter'
 import { useRouter, RouterLink } from 'vue-router'
 import Swal from 'sweetalert2'
 
@@ -100,4 +100,8 @@ const submitForm = async () => {
       </div>
     </div>
   </section>
+</template> -->
+
+<template>
+  awd
 </template>
