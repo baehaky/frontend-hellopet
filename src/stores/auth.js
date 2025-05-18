@@ -18,10 +18,10 @@ export const useAuthStore = defineStore('auth', {
       this.loading = true
       this.error = null
       try {
-        await api.post('/api/auth/register', payload)
+        await api.post('/api/auth/user/register', payload)
         return true
       } catch (error) {
-        this.error = error.response?.data?.message || 'Gagal dalam mendaftar'
+        this.error = error.response?.message || 'Gagal dalam mendaftar'
         throw error
       } finally {
         this.loading = false
@@ -34,19 +34,25 @@ export const useAuthStore = defineStore('auth', {
       try {
         const response = await api.post('/api/auth/login', payload)
 
-        this.user = response.data.user
-        this.token = response.data.token
-        localStorage.setItem(
-          'auth',
-          JSON.stringify({
-            user: this.user,
-            token: this.token,
-          }),
-        )
+        if (response.data && response.data.data) {
+          this.user = response.data.data.user
+          this.token = response.data.data.token
 
-        return true
+          localStorage.setItem(
+            'auth',
+            JSON.stringify({
+              user: this.user,
+              token: this.token,
+            }),
+          )
+
+          api.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
+
+          return true
+        }
+        throw new Error('Invalid response structure')
       } catch (error) {
-        this.error = error.response?.data?.message || 'Gagal dalam masuk'
+        this.error = error.response?.data?.message || 'Login failed'
         throw error
       } finally {
         this.loading = false
@@ -74,12 +80,22 @@ export const useAuthStore = defineStore('auth', {
       localStorage.removeItem('auth')
     },
 
-    initialize() {
-      const authData = localStorage.getItem('auth')
-      if (authData) {
-        const { user, token } = JSON.parse(authData)
-        this.user = user
-        this.token = token
+    async initialize() {
+      const savedAuth = localStorage.getItem('auth')
+      if (savedAuth) {
+        try {
+          const parsedAuth = JSON.parse(savedAuth)
+          this.user = parsedAuth.user
+          this.token = parsedAuth.token
+
+          if (this.token) {
+            api.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
+            await api.get('/api/auth/me')
+          }
+        } catch (error) {
+          console.warn('Auth initialization failed:', error)
+          this.clearAuth()
+        }
       }
     },
   },

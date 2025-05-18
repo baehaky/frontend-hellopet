@@ -3,9 +3,9 @@
     <div
       class="grid max-w-screen-xl px-4 py-8 mx-auto md:grid-cols-3 lg:grid-cols-12 gap-8 lg:py-16"
     >
-      <div class="mr-auto place-self-center md:col-span-2 lg:col-span-9 ">
+      <div class="mr-auto place-self-center md:col-span-2 lg:col-span-9">
         <h1
-          class="max-w-full mb-4 text-xl text-justify font-extrabold tracking-tight leading-none md:text-3xl xl:text-4xl dark:text-white"
+          class="max-w-full mb-4 text-xl text-justify font-extrabold tracking-tight leading-none md:text-3xl xl:text-4xl text-white"
         >
           Kami Hadir untuk Merawat <span class="text-[#FCFF82]">Kesehatan</span> Hewan
           <span class="text-[#FCFF82]">Kesayangan</span> Anda karena Mereka Lebih dari Sekadar

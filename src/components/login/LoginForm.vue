@@ -33,23 +33,37 @@ const links = [
 ]
 
 const submitForm = async () => {
-  const success = await auth.login({
-    email: form.email,
-    password: form.password,
-  })
-
-  if (success) {
-    await Swal.fire({
-      icon: 'success',
-      title: 'Berhasil',
-      text: 'Login berhasil!',
+  try {
+    const res = await auth.login({
+      email: form.email,
+      password: form.password,
     })
-    await router.push('/')
-  } else {
-    await Swal.fire({
+
+    if (res) {
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Berhasil',
+        text: 'Login berhasil!',
+      }).then(() => {
+        if (auth.user.roles === 'dokter') {
+          router.push({ path: `/dokter/dashboard/${auth.user.id}` })
+        } else {
+          router.push({ path: '/' })
+        }
+      })
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Gagal',
+        text: 'Email atau password salah!',
+      })
+    }
+  } catch (error) {
+    Swal.fire({
       icon: 'error',
       title: 'Gagal',
-      text: 'Login gagal!',
+      text: error.response?.data?.message || 'Terjadi kesalahan',
     })
   }
 }
@@ -59,12 +73,15 @@ const submitForm = async () => {
   <div class="flex flex-col max-w-md space-y-5">
     <form @submit.prevent="submitForm" class="flex flex-col space-y-3">
       <template v-for="field in formFields" :key="field.name">
-        <input
-          v-model="form[field.name]"
-          :type="field.type"
-          :placeholder="field.placeholder"
-          class="flex px-3 py-2 md:px-4 md:py-3 border-2 border-teal-400 rounded-lg font-medium placeholder:font-normal w-full"
-        />
+        <div>
+          <label class="font-semibold" :for="form[field.name]">{{ field.name }}</label>
+          <input
+            v-model="form[field.name]"
+            :type="field.type"
+            :placeholder="field.placeholder"
+            class="flex px-3 py-2 md:px-4 md:py-3 border-2 border-teal-400 rounded-lg font-medium placeholder:font-normal w-full"
+          />
+        </div>
       </template>
 
       <button

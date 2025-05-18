@@ -4,7 +4,7 @@ import LoginSection from '@/components/login/LoginSection.vue'
 </script>
 
 <template>
-  <div className="flex min-h-[100dvh]">
+  <div className="flex min-h-[100dvh] ">
     <div className="flex flex-row w-full">
       <LoginSection />
       <div className="flex flex-1 flex-col items-center justify-center px-10 relative">

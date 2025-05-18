@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/auth'
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
+  // baseURL: 'http://localhost:5000/',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -19,9 +20,9 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response && error.response.status === 401) {
+    if (error.response?.status === 401) {
       const authStore = useAuthStore()
-      authStore.logout()
+      authStore.clearAuth()
     }
     return Promise.reject(error)
   },
