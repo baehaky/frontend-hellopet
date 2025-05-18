@@ -14,12 +14,12 @@ class SocketService {
     }
 
     return new Promise((resolve, reject) => {
-      const socket = io('http://localhost:5000', {
+      const socket = io(import.meta.env.VITE_API_URL, {
         query: { userId },
         reconnection: true,
         reconnectionAttempts: 5,
         reconnectionDelay: 1000,
-        transports: ['websocket', 'polling'] // Prioritaskan WebSocket
+        transports: ['websocket', 'polling'], // Prioritaskan WebSocket
       })
 
       socket.on('connect', () => {
@@ -37,7 +37,7 @@ class SocketService {
       socket.on('disconnect', (reason) => {
         console.log('Socket disconnected:', reason)
         this.connected = false
-        
+
         // Coba hubungkan kembali jika disconnect karena error jaringan
         if (reason === 'io server disconnect' || reason === 'transport close') {
           socket.connect()
@@ -59,7 +59,7 @@ class SocketService {
       console.warn('Socket is not connected')
       return
     }
-    
+
     // Menyimpan listener untuk dapat dihapus nanti
     this.listeners.set(event, callback)
     this.socket.on(event, callback)
@@ -67,7 +67,7 @@ class SocketService {
 
   off(event) {
     if (!this.socket) return
-    
+
     const callback = this.listeners.get(event)
     if (callback) {
       this.socket.off(event, callback)
