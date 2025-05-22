@@ -13,7 +13,7 @@ export const usePaymentStore = defineStore('payment', () => {
 
       if (!window.snap) {
         const script = document.createElement('script')
-        script.src = script.src = 'https://app.sandbox.midtrans.com/snap/snap.js'
+        script.src = script.src = 'https://app.midtrans.com/snap/snap.js'
         script.setAttribute('data-client-key', import.meta.env.VITE_CLIENT_KEY)
 
         script.onload = () => {

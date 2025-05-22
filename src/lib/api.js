@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useAuthStore } from '@/stores/auth'
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/',
+  baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -10,9 +10,9 @@ const api = axios.create({
   },
 })
 
-// api.interceptors.request.use((config) => {
-//   return config
-// })
+api.interceptors.request.use((config) => {
+  return config
+})
 
 api.interceptors.response.use(
   (response) => response,
