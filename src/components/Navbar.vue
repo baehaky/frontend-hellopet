@@ -16,11 +16,13 @@ const navItems = computed(() => {
   return authStore.isLoggedIn
     ? [
         { name: 'Beranda', path: '/' },
+        { name: 'List Grooming', path: 'listgrooming' },
         { name: 'Tentang Kami', path: 'tentang-kami' },
         { name: 'Informasi', path: 'informasi' },
       ]
     : [
         { name: 'Beranda', path: '/' },
+        { name: 'List Grooming', path: 'listgrooming' },
         { name: 'Tentang Kami', path: 'tentang-kami' },
         { name: 'Informasi', path: 'informasi' },
       ]
